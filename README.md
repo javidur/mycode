@@ -19,7 +19,7 @@ What things are needed to install the software and how to install them. For now,
 
 ## Authors
 
-* **Javier Duran** - *Initial work* - [YourWebsite](https://example.com/)
+* **Javi Duran** - *Initial work* - [YourWebsite](https://example.com/)
 
 
 Copy of Template used
