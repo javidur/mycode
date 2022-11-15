@@ -4,15 +4,15 @@
 
 def showInstructions():
     """Show the game instructions when called"""
-    #print a main menu and the commands
+    #print a main menu and the commands/added more instruction
     print('''
     RPG Game
     ========
     Winning the Game: Get to the Garden with a key and a potion to win! Avoid the monsters!
 
     Commands:
-      go [direction]
-      get [item]
+      go [direction] i.e. north, south, west, east
+      get [item] i.e. pick up item in room
     ''')
 
 def showStatus():
@@ -20,6 +20,7 @@ def showStatus():
     # print the player's current location
     print('---------------------------')
     print('You are in the ' + currentRoom)
+    print(f'You have moved {moveCount} times')
     # print what the player is carrying
     print('Inventory:', inventory)
     # check if there's an item in the room, if so print it
@@ -35,13 +36,18 @@ inventory = []
 rooms = {
 
             'Hall' : {
-                  'south' : 'Kitchen',
+                  'south' : 'Family Room',
                   'east' : 'Dining Room',
                   'item' : 'key'
                 },
-
+            # New room added with an item
+            'Family Room' : {
+                'north' : 'Hall',
+                'south' : 'Kitchen',
+                'item' : 'sword'
+            },
             'Kitchen' : {
-                  'north' : 'Hall',
+                  'north' : 'Family Room',
                   'item' : 'monster'
                 },
             'Dining Room' : {
@@ -56,6 +62,9 @@ rooms = {
 
 # start the player in the Hall
 currentRoom = 'Hall'
+
+# variable initiated that will count how many times the player has moved
+moveCount = 0
 
 showInstructions()
 
@@ -80,6 +89,8 @@ while True:
         if move[1] in rooms[currentRoom]:
             #set the current room to the new room
             currentRoom = rooms[currentRoom][move[1]]
+            # adds a count of the amount of times the player has moved
+            moveCount += 1
         # if they aren't allowed to go that way:
         else:
             print('You can\'t go that way!')
@@ -107,9 +118,11 @@ while True:
         break
 
     ## Define how a player can win
-    if currentRoom == 'Garden' and 'key' in inventory and 'potion' in inventory:
+    if currentRoom == 'Garden' and 'key' in inventory and 'potion' in inventory and 'sword' in inventory:
         print('You escaped the house with the ultra rare key and magic potion... YOU WIN!')
         break
+    else:
+        print('You must collect all the items in order to win')
 
 
 
