@@ -25,7 +25,7 @@ def showStatus():
     print('Inventory:', inventory)
     # check if there's an item in the room, if so print it
     if "item" in rooms[currentRoom]:
-      print('You see a ' + rooms[currentRoom]['item'])
+      print('You see a ', rooms[currentRoom]['item'])
     print("---------------------------")
 
 
@@ -44,7 +44,7 @@ rooms = {
             'Family Room' : {
                 'north' : 'Hall',
                 'south' : 'Kitchen',
-                'item' : 'sword'
+                'item' : {'sword', 'wand'}
             },
             'Kitchen' : {
                   'north' : 'Family Room',
@@ -106,7 +106,7 @@ while True:
             #display a helpful message
             print(move[1] + ' got!')
             #delete the item key:value pair from the room's dictionary
-            del rooms[currentRoom]['item']
+            del rooms[currentRoom]['item'][move[1]]
         # if there's no item in the room or the item doesn't match
         else:
             #tell them they can't get it
