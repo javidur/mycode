@@ -13,6 +13,7 @@ def showInstructions():
     Commands:
       go [direction] i.e. north, south, west, east
       get [item] i.e. pick up item in room
+      press [option]
     ''')
 
 def showStatus():
@@ -25,10 +26,12 @@ def showStatus():
     print('Inventory:', inventory)
     # check if there's an item in the room, if so print it
     if "item" in rooms[currentRoom]:
-      print('You see a ', rooms[currentRoom]['item'])
+      print('You see a ' + rooms[currentRoom]['item'])
     print("---------------------------")
     if "door" in rooms[currentRoom]:
         print("There is a door to the North, do you want to go in?")
+    if "teleport" in rooms[currentRoom]:
+        print("There is a button in this room, do you want to press it? Command: press button")
 
 # an inventory, which is initially empty
 inventory = []
@@ -45,7 +48,8 @@ rooms = {
             'Family Room' : {
                 'north' : 'Hall',
                 'south' : 'Kitchen',
-                'item' : "sword"
+                'item' : "sword",
+                "teleport" : "button"
             },
             'Kitchen' : {
                   'north' : 'Family Room',
@@ -111,11 +115,18 @@ while True:
             #display a helpful message
             print(move[1] + ' got!')
             #delete the item key:value pair from the room's dictionary
-            del rooms[currentRoom]['item'][move[1]]
+            del rooms[currentRoom]['item']
         # if there's no item in the room or the item doesn't match
         else:
             #tell them they can't get it
             print('Can\'t get ' + move[1] + '!')
+
+    # if they type "press" first they will be teleported to the Garden
+    if move[0] == "press": 
+        if "teleport" in rooms[currentRoom] and move[1] in rooms[currentRoom]["teleport"]:
+            moveCount += 1
+            print("You have been teleported to the Garden")
+            currentRoom = "Garden"
 
     ## If a player enters a room with a monster
     if 'item' in rooms[currentRoom] and 'monster' in rooms[currentRoom]['item']:
