@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-"""Driving a simple game framework with
-   a dictionary object | Alta3 Research"""
+"""Javier Duran
+    MiniProject 2 Game"""
 
 def showInstructions():
     """Show the game instructions when called"""
@@ -27,7 +27,8 @@ def showStatus():
     if "item" in rooms[currentRoom]:
       print('You see a ', rooms[currentRoom]['item'])
     print("---------------------------")
-
+    if "door" in rooms[currentRoom]:
+        print("There is a door to the North, do you want to go in?")
 
 # an inventory, which is initially empty
 inventory = []
@@ -44,7 +45,7 @@ rooms = {
             'Family Room' : {
                 'north' : 'Hall',
                 'south' : 'Kitchen',
-                'item' : {'sword', 'wand'}
+                'item' : "sword"
             },
             'Kitchen' : {
                   'north' : 'Family Room',
@@ -53,11 +54,15 @@ rooms = {
             'Dining Room' : {
                 'west' : 'Hall',
                 'south' : 'Garden',
-                'item' : 'potion'
+                'item' : 'potion',
+                "door" : "Door",
+                "north" : "Trap"
                 },
             'Garden' : {
                 'north' : 'Dining Room'
-                }
+                },
+            # Trap room where player cannot escape
+            "Trap" : {}
          }
 
 # start the player in the Hall
@@ -123,6 +128,9 @@ while True:
         break
     else:
         print('You must collect all the items in order to win')
-
-
+    
+    # Trap door
+    if currentRoom == "Trap":
+        print("You cannot escape the room.... GAME OVER!")
+        break
 
