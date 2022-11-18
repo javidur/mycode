@@ -41,7 +41,7 @@ def setcookie():
            powers = data["powers"]
            herodata.append({"name":name,"realName":realName,"since":since,"powers":powers})
         
-        hero = date["name"]
+        hero = data["name"]
         print(hero)
         resp = make_response(render_template("readcookie.html"))
 

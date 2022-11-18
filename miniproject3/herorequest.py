@@ -20,7 +20,3 @@ new_hero= json.dumps(new_hero)
 # and a json string to attach to the request
 resp= requests.post(URL, json=new_hero)
 
-# pretty-print the response 
-
-
-
